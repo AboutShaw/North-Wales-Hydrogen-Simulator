@@ -2,10 +2,11 @@ let dayNumber = 1;
 let hours = 0;
 let minutes = 0;
 let formattedTime;
-let powerAvailable = 0;
-let diWaterAvailable = 0;
-const diWaterRate = 2;
-const diPowerRate = -3;
+let powerMax = 0;
+let powerAvailable = 0; // MW per hour
+let diWaterAvailable = 0; // m3
+const diWaterRate = 2; // m3 per minute
+const diPowerRate = -3; // MW per hour
 function timeSimulator() {
     setInterval(() => {
         minutes++;
@@ -22,6 +23,7 @@ function timeSimulator() {
             // Calculate power output based on the hour of the day
             if (hours >= 1 && hours <= 5) {
                 powerAvailable = 105;
+                powerMax = 105;
                 if (powerAvailable > 0) {
                     powerAvailable = powerAvailable + diPowerRate;
                     diWaterAvailable = diWaterAvailable + diWaterRate;
@@ -31,7 +33,7 @@ function timeSimulator() {
         else {
             clearInterval(this);
         }
-        console.log(`Day ${dayNumber}: ${formattedTime}, Power avialable: ${powerAvailable} MW, DI Water available: ${diWaterAvailable}`);
+        console.log(`Day ${dayNumber}: ${formattedTime}, Power: ${powerAvailable}/${powerMax} MW, DI Water available: ${diWaterAvailable}`);
     }, 250);
 }
 timeSimulator();

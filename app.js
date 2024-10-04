@@ -14,11 +14,16 @@ function timeSimulator() {
         }
         if (dayNumber <= 365) {
             const formattedTime = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
-            console.log(`Day ${dayNumber}: ${formattedTime}`);
+            // Calculate power output based on the hour of the day
+            let powerAvailable = 0;
+            if (hours >= 1 && hours <= 5) {
+                powerAvailable = 105;
+            }
+            console.log(`Day ${dayNumber}: ${formattedTime}, Power avialable: ${powerAvailable} MW`);
         }
         else {
-            clearInterval(this); // Stop the simulation after 365 days
+            clearInterval(this);
         }
-    }, 500); // Update every 60000 milliseconds (1 minute)
+    }, 100);
 }
 timeSimulator();

@@ -6,7 +6,7 @@ let powerMax = 105;
 let powerAvailable = 0; // MW per hour
 let charge = 0;
 let batteryStorage = 0; // MW
-let chargeRatio = 0.8; // % of available power
+let chargeRatio = 1; // % of available power
 let diWaterAvailable = 0; // kg
 const diWaterRate = 310; // kg per minute
 const diPowerRate = -0.0372; // MW per hour
@@ -45,13 +45,8 @@ function timeSimulator() {
         if (dayNumber <= 365) {
             formattedTime = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
             // Calculate power output based on the hour of the day
-            if (hours >= 1 && hours <= 5) {
+            if ((hours >= 1 && hours <= 5) && hydrogenproduced < systemH2Max) {
                 powerAvailable = powerMax;
-                if (powerAvailable > 0 && hydrogenproduced >= systemH2Max) {
-                    charge = (powerAvailable * chargeRatio) / 60;
-                    batteryStorage = batteryStorage + charge;
-                }
-                ;
                 if (powerAvailable > 0) {
                     powerAvailable = powerAvailable + diPowerRate + electroPowerMax;
                     charge = (powerAvailable * chargeRatio) / 60;
@@ -63,7 +58,12 @@ function timeSimulator() {
                 ;
             }
             else {
-                powerAvailable = 0;
+                if (hours >= 1 && hours <= 5) {
+                    powerAvailable = powerMax;
+                    charge = (powerAvailable * chargeRatio) / 60;
+                    batteryStorage = batteryStorage + charge;
+                    powerAvailable = powerAvailable - (powerAvailable * chargeRatio);
+                }
             }
         }
         else {

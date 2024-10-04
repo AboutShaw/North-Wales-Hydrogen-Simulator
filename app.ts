@@ -1,5 +1,6 @@
+let currentTime = 0;
+
 function simulateTime(maxTime:number) {
-    let currentTime = 0;
 
     setInterval(() => {
         currentTime = (currentTime + 1) % maxTime;
@@ -11,3 +12,13 @@ function simulateTime(maxTime:number) {
 
 const maxTime = 1440;
 simulateTime(maxTime);
+
+const minPower = 0;
+const maxPower = 105;
+let power = 0;
+
+let powerSchedule = [1, 2, 3, 4, 5];
+
+function availablePower(params:type) {
+    
+}

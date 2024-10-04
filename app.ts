@@ -1,12 +1,12 @@
 let dayNumber = 1;
 let minutes = 0;
+let hours = 0;
 let formattedTime;
 let powerMax = 0;
 let powerAvailable = 0; // MW per hour
 let diWaterAvailable = 0; // m3
 const diWaterRate = 2; // m3 per minute
 const diPowerRate = -3; // MW per hour
-let hours = 0;
 
 function timeSimulator() {
 
